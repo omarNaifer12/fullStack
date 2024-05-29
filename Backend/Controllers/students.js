@@ -40,6 +40,38 @@ const studentController={
             res.send(`User added with ID: ${results.insertId}`);
         })
     },
-    
+    updateStudent: (req, res) => {
+        const id = req.params.id;
+        Student.GetByID(id, (err, results) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            if (results.length === 0) {
+                return res.status(404).send({ error: 'student not found' });
+            }
+
+            const existingStudent = results[0];
+        const student = {
+            FirstName: req.body.FirstName||existingStudent.FirstName,
+            LastName: req.body.LastName||existingStudent.LastName,
+            Age:req.body.Age||existingStudent.Age
+        }
+      
+        Student.update(id, student, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.send(`User updated with ID: ${req.params.id}`);
+        });
+        })
+    },
+    deleteStudent:(req, res) => {
+        Student.delete(req.params.id, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.send(`Student deleted with ID: ${req.params.id}`);
+        });
+    }
 }
 module.exports=studentController;
