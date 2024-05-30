@@ -29,7 +29,6 @@ const studentController={
             FirstName:req.body.FirstName,
             LastName:req.body.LastName,
             Age:req.body.Age
-
         };
         Student.Add(student,(error,results)=>{
             if(error){
@@ -65,7 +64,7 @@ const studentController={
         });
         })
     },
-    deleteStudent:(req, res) => {
+    deleteStudent:(req,res) => {
         Student.delete(req.params.id, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
