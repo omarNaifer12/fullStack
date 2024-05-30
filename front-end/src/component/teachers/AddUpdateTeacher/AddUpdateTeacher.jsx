@@ -80,6 +80,7 @@ const AddUpdateTeacher = ({ teacher }) => {
           {teacher === undefined ? "Add Teacher" : "Update Teacher"}
         </button>
       </form>
+      <button  className='back' onClick={()=>navigate(-1)}>back</button>
     </div>
   );
 }

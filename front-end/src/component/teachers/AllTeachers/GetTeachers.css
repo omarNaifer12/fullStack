@@ -91,4 +91,15 @@
   .delete:hover {
     background-color: #e53935;
   }
-  
+  .back{
+    display: block;
+    width: 10%;
+    padding: 10px;
+   background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  float: right;
+  }

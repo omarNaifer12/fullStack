@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import "./GetStudents.css"
 import axios from 'axios'
 import AddUpdateStudent from '../AddUpdateStudent/AddUpdateStudent'
+import { useNavigate } from 'react-router-dom'
 
 const GetStudents = () => {
   const[students,setStudents]=useState([]);
   const [getAddForm,setGetAddForm]=useState("");
   const[GetStudent,setGetStudent]=useState({});
+  const navigate=useNavigate();
 useEffect(()=>{
 const fetchDataStudents=async()=>{
 try{
 const response= await axios.get("http://localhost:3000/api/students");
 console.log(response.data);
-setStudents(response.data)
+ setStudents(response.data)
 }
     catch(err){
 console.log("error",err);
@@ -30,10 +32,8 @@ setStudents(students.filter(student=>student.studentID!==studentId));
 console.log("error",err);
    }
 }
-if(getAddForm==="ADD"){
-    return <AddUpdateStudent />
-}
-else if(getAddForm==="Edit"){
+
+ if(getAddForm==="Edit"){
     return <AddUpdateStudent student={GetStudent}/>
 }
 const handleUpdate=(student)=>{
@@ -43,7 +43,7 @@ setGetAddForm("Edit");
     return (
     <div className="container">
         <h1>Student Records</h1>
-        <button onClick={()=>setGetAddForm("ADD")} className="add-btn" >Add Student</button>
+        <button onClick={()=>navigate("/SAdd")} className="add-btn" >Add Student</button>
         <table id="studentsTable">
             <thead>
                 <tr>
@@ -78,7 +78,7 @@ return(
 
             </tbody>
         </table>
-        
+        <button  className='back' onClick={()=>navigate(-1)}>back</button>
     </div>
   )
 }

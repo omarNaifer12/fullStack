@@ -64,6 +64,7 @@ const AddUpdateClass = ({ classData }) => {
           {classData === undefined ? "Add Class" : "Update Class"}
         </button>
       </form>
+      <button  className='back' onClick={()=>navigate(-1)}>back</button>
     </div>
   )
 }

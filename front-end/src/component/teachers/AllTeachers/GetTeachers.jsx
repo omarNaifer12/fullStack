@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import "./GetTeachers.css";
 import axios from 'axios';
 import AddUpdateTeacher from '../AddUpdateTeacher/AddUpdateTeacher';
+import { useNavigate } from 'react-router-dom';
 
 const GetTeachers = () => {
   const [teachers, setTeachers] = useState([]);
   const [formMode, setFormMode] = useState(""); // "ADD" or "Edit"
   const [selectedTeacher, setSelectedTeacher] = useState({});
-
+const navigate=useNavigate();
   useEffect(() => {
     const fetchDataTeachers = async () => {
       try {
@@ -30,9 +31,7 @@ const GetTeachers = () => {
     }
   }
 
-  if (formMode === "ADD") {
-    return <AddUpdateTeacher />
-  } else if (formMode === "Edit") {
+   if (formMode === "Edit") {
     return <AddUpdateTeacher teacher={selectedTeacher} />
   }
 
@@ -44,7 +43,7 @@ const GetTeachers = () => {
   return (
     <div className="container">
       <h1>Teacher Records</h1>
-      <button onClick={() => setFormMode("ADD")} className="add-btn">Add Teacher</button>
+      <button onClick={() => navigate("/TAdd")} className="add-btn">Add Teacher</button>
       <table id="teachersTable">
         <thead>
           <tr>
@@ -70,6 +69,8 @@ const GetTeachers = () => {
           ))}
         </tbody>
       </table>
+      <button  className='back' onClick={()=>navigate(-1)}>back</button>
+
     </div>
   )
 }

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import "./GetClasses.css";
 import axios from 'axios';
 import AddUpdateClass from '../AddUpdateClass/AddUpdateClass';
+import { useNavigate } from 'react-router-dom';
 
 const GetClasses = () => {
   const [classes,setClasses] = useState([]);
   const [formMode,setFormMode] = useState(""); // "ADD" or "Edit"
   const [selectedClass,setSelectedClass] = useState({});
-
+const navigate=useNavigate();
   useEffect(() => {
     const fetchDataClasses = async () => {
       try {
@@ -30,9 +31,7 @@ const GetClasses = () => {
     }
   }
 
-  if (formMode === "ADD") {
-    return <AddUpdateClass />
-  } else if (formMode === "Edit") {
+  if (formMode === "Edit") {
     return <AddUpdateClass classData={selectedClass} />
   }
 
@@ -44,7 +43,7 @@ const GetClasses = () => {
   return (
     <div className="container">
       <h1>Class Records</h1>
-      <button onClick={() => setFormMode("ADD")} className="add-btn">Add Class</button>
+      <button onClick={() => navigate("/CAdd")} className="add-btn">Add Class</button>
       <table id="classesTable">
         <thead>
           <tr>
@@ -66,6 +65,7 @@ const GetClasses = () => {
           ))}
         </tbody>
       </table>
+    <button  className='back' onClick={()=>navigate(-1)}>back</button>
     </div>
   )
 }

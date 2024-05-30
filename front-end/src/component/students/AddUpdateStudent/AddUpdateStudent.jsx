@@ -1,6 +1,7 @@
 import React, {  useState } from 'react'
 import "./AddUpdateStudent.css"
 import axios from 'axios';
+
 const AddUpdateStudent = ({student}) => {
 const [studentData,setStudentData]=useState({
     FirstName:student===undefined?"":student.FirstName,
@@ -50,7 +51,7 @@ console.log("the data is ",studentData);
 }
     return (
     <div className="form-container">
-    <h2>Add Student</h2>
+    <h2>{student===undefined?"Add Student":"Update Student"}</h2>
     <form className="add-student-form">
       <div className="form-group">
         <label htmlFor="studentID"> Student ID:</label>
@@ -74,8 +75,12 @@ console.log("the data is ",studentData);
         onChange={handleChange} value={studentData.Age}/>
       </div>
       <button type="submit" className="submit-btn" 
-      onClick={student===undefined?handleSubmitAdd:handleSubmitUpdate}>Add Student</button>
+      onClick={student===undefined?handleSubmitAdd:handleSubmitUpdate}>
+        {student===undefined?"Add Student":"Update Student"}
+      </button>
+     
     </form>
+    <button  className='back' onClick={()=>navigate(-1)}>back</button>
   </div>
   )
 }
