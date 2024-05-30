@@ -1,0 +1,77 @@
+import React, { useEffect, useState } from 'react';
+import "./GetTeachers.css";
+import axios from 'axios';
+import AddUpdateTeacher from '../AddUpdateTeacher/AddUpdateTeacher';
+
+const GetTeachers = () => {
+  const [teachers, setTeachers] = useState([]);
+  const [formMode, setFormMode] = useState(""); // "ADD" or "Edit"
+  const [selectedTeacher, setSelectedTeacher] = useState({});
+
+  useEffect(() => {
+    const fetchDataTeachers = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/teachers");
+        console.log(response.data);
+        setTeachers(response.data);
+      } catch (err) {
+        console.log("error", err);
+      }
+    }
+    fetchDataTeachers();
+  }, []);
+
+  const deleteTeacher = async (teacherId) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/teacher/${teacherId}`);
+      setTeachers(teachers.filter(teacher => teacher.teacherID !== teacherId));
+    } catch (err) {
+      console.log("error", err);
+    }
+  }
+
+  if (formMode === "ADD") {
+    return <AddUpdateTeacher />
+  } else if (formMode === "Edit") {
+    return <AddUpdateTeacher teacher={selectedTeacher} />
+  }
+
+  const handleUpdate = (teacher) => {
+    setSelectedTeacher(teacher);
+    setFormMode("Edit");
+  }
+
+  return (
+    <div className="container">
+      <h1>Teacher Records</h1>
+      <button onClick={() => setFormMode("ADD")} className="add-btn">Add Teacher</button>
+      <table id="teachersTable">
+        <thead>
+          <tr>
+            <th>Teacher ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {teachers.map((teacher, index) => (
+            <tr key={teacher.teacherID}>
+              <td>{teacher.teacherID}</td>
+              <td>{teacher.FirstName}</td>
+              <td>{teacher.LastName}</td>
+              <td>{teacher.Age}</td>
+              <td>
+                <button className="action-btn update" onClick={() => handleUpdate(teacher)}>Update</button>
+                <button onClick={() => deleteTeacher(teacher.teacherID)} className="action-btn delete">Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export default GetTeachers;

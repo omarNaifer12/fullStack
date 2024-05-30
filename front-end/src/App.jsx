@@ -1,9 +1,10 @@
 import React from 'react'
-import GetStudents from './component/students/AllStudents/GetStudents'
+import GetClasses from './component/classes/AllClasses/GetClasses'
+
 const App = () => {
   return (
     <div>
-      <GetStudents />
+      <GetClasses />
     </div>
   )
 }
