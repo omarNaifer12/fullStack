@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import "./GetStudents.css"
 import axios from 'axios'
-
+import AddUpdateStudent from '../AddUpdateStudent/AddUpdateStudent'
 
 const GetStudents = () => {
   const[students,setStudents]=useState([]);
+  const [getAddForm,setGetAddForm]=useState("");
+  const[GetStudent,setGetStudent]=useState({});
 useEffect(()=>{
 const fetchDataStudents=async()=>{
 try{
@@ -28,10 +30,20 @@ setStudents(students.filter(student=>student.studentID!==studentId));
 console.log("error",err);
    }
 }
+if(getAddForm==="ADD"){
+    return <AddUpdateStudent />
+}
+else if(getAddForm==="Edit"){
+    return <AddUpdateStudent student={GetStudent}/>
+}
+const handleUpdate=(student)=>{
+setGetStudent(student);
+setGetAddForm("Edit");
+}
     return (
     <div className="container">
         <h1>Student Records</h1>
-        <button className="add-btn">Add Student</button>
+        <button onClick={()=>setGetAddForm("ADD")} className="add-btn" >Add Student</button>
         <table id="studentsTable">
             <thead>
                 <tr>
@@ -53,7 +65,9 @@ return(
                     <td>{student.LastName}</td>
                     <td>{student.Age}</td>
                     <td>
-                        <button className="action-btn update">Update</button>
+                        <button className="action-btn update"
+                        onClick={()=>handleUpdate(student)}
+                        >Update</button>
                         <button onClick={()=>DeleteStudent(student.studentID)} className="action-btn delete">Delete</button>
                     </td>
                 </tr>

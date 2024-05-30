@@ -36,6 +36,7 @@ const studentController={
                 return res.status(500).send(err);
             }
             console.log("added good");
+            req.body.studentID=results.insertId;
             res.send(`User added with ID: ${results.insertId}`);
         })
     },
