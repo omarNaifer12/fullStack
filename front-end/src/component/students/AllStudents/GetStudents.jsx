@@ -4,12 +4,16 @@ import axios from 'axios'
 import AddUpdateStudent from '../AddUpdateStudent/AddUpdateStudent'
 import { useNavigate } from 'react-router-dom'
 
-const GetStudents = () => {
+const GetStudents =() => {
   let[students,setStudents]=useState([]);
   const[studentsForSeacrh,setStudentsForSeacrh]=useState([]);
   const [getAddForm,setGetAddForm]=useState("");
- 
   const[GetStudent,setGetStudent]=useState({});
+  const [selectedOption, setSelectedOption] = useState('');
+  const handleChangeOptions = (event) => {
+      setSelectedOption(event.target.value);
+      console.log(selectedOption);
+  };
   const navigate=useNavigate();
 useEffect(()=>{
 const fetchDataStudents=async()=>{
@@ -27,7 +31,7 @@ console.log("error",err);
 fetchDataStudents();
 
 },[])
-const handleSearch=(inputSearch)=>{
+const handleSearchFirstName=(inputSearch)=>{
     
 if(inputSearch===""){
    setStudents(studentsForSeacrh)
@@ -40,9 +44,63 @@ if(inputSearch===""){
         }return false;
 
     })
-    console.log("log is ",res);
     setStudents(res);
 }
+}
+const handleSearchLastName=(inputSearch)=>{
+    
+    if(inputSearch===""){
+       setStudents(studentsForSeacrh)
+    }else{
+        let res=studentsForSeacrh.filter((student)=>{
+            var last=student.LastName.toLowerCase();
+            if( last.includes(inputSearch.toLowerCase())){
+                return true;
+            }return false;    
+        })
+        setStudents(res);
+    }
+    }
+    const handleSearchAge=(inputSearch)=>{
+    
+        if(inputSearch===""){
+           setStudents(studentsForSeacrh)
+        }else{
+            let res=studentsForSeacrh.filter((student)=>{
+                var age=student.Age.toString();
+                if( age.includes(inputSearch)){
+                    return true;
+                }return false;    
+            })
+            setStudents(res);
+        }
+        }
+        const handleSearchID=(inputSearch)=>{
+    
+            if(inputSearch===""){
+               setStudents(studentsForSeacrh)
+            }else{
+                let res=studentsForSeacrh.filter((student)=>{
+                    var ID=student.studentID.toString();
+                    if( ID.includes(inputSearch)){
+                        return true;
+                    }return false;    
+                })
+                setStudents(res);
+            }
+            }
+            const handleSearch=(input)=>{
+if(selectedOption==="FirstName"){
+    handleSearchFirstName(input);
+}
+else if(selectedOption==="LastName"){
+    handleSearchLastName(input);
+}
+else if(selectedOption==="StudentID")  {
+    handleSearchID(input);
+}else if(selectedOption==="Age"){
+    handleSearchAge(input);
+}          
 }
 const DeleteStudent=async(studentId)=>{
    try{
@@ -67,7 +125,8 @@ return (
         <button onClick={() => navigate("/SAdd")} className="add-btn">Add Student</button>
         <div className="search-container">
             <label htmlFor="searchBy">Search By:</label>
-            <select id="searchBy" className="search-select">
+            <select id="searchBy" className="search-select" 
+            onChange={handleChangeOptions}>
                 <option value="">--Select--</option>
                 <option value="FirstName">First Name</option>
                 <option value="LastName">Last Name</option>
