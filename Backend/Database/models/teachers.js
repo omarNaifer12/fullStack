@@ -12,7 +12,7 @@ Add:(teacher,callback)=>{
     const sql = 'INSERT INTO teachers SET ?';
     conn.query(sql, teacher, callback);
 },
-update: (id, teacher, callback) => {
+update: (id,teacher,callback) => {
     const sql = 'UPDATE teachers SET ? WHERE teacherID = ?';
     conn.query(sql, [teacher, id], callback);
 },

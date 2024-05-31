@@ -66,7 +66,7 @@ console.log("the data is ",studentData);
       </div>
       <div className="form-group">
         <label htmlFor="lastName">Last Name</label>
-        <input type="text" id="lastName" name="LastName"   value={studentData.LastName}
+        <input type="text" id="lastName" name="LastName" value={studentData.LastName}
         onChange={handleChange}/>
       </div>
       <div className="form-group">

@@ -5,24 +5,45 @@ import AddUpdateStudent from '../AddUpdateStudent/AddUpdateStudent'
 import { useNavigate } from 'react-router-dom'
 
 const GetStudents = () => {
-  const[students,setStudents]=useState([]);
+  let[students,setStudents]=useState([]);
+  const[studentsForSeacrh,setStudentsForSeacrh]=useState([]);
   const [getAddForm,setGetAddForm]=useState("");
+ 
   const[GetStudent,setGetStudent]=useState({});
   const navigate=useNavigate();
 useEffect(()=>{
 const fetchDataStudents=async()=>{
 try{
 const response= await axios.get("http://localhost:3000/api/students");
-console.log(response.data);
- setStudents(response.data)
+const result=response.data;
+ setStudents(result);
+ setStudentsForSeacrh(result);
 }
-    catch(err){
+catch(err){
 console.log("error",err);
     }
    
 }
 fetchDataStudents();
+
 },[])
+const handleSearch=(inputSearch)=>{
+    
+if(inputSearch===""){
+   setStudents(studentsForSeacrh)
+}else{
+  
+    let res=studentsForSeacrh.filter((student)=>{
+        var name=student.FirstName.toLowerCase();
+        if( name.includes(inputSearch.toLowerCase())){
+            return true;
+        }return false;
+
+    })
+    console.log("log is ",res);
+    setStudents(res);
+}
+}
 const DeleteStudent=async(studentId)=>{
    try{
 await axios.delete(`http://localhost:3000/api/student/${studentId}`);
@@ -40,10 +61,23 @@ const handleUpdate=(student)=>{
 setGetStudent(student);
 setGetAddForm("Edit");
 }
-    return (
+return (
     <div className="container">
         <h1>Student Records</h1>
-        <button onClick={()=>navigate("/SAdd")} className="add-btn" >Add Student</button>
+        <button onClick={() => navigate("/SAdd")} className="add-btn">Add Student</button>
+        <div className="search-container">
+            <label htmlFor="searchBy">Search By:</label>
+            <select id="searchBy" className="search-select">
+                <option value="">--Select--</option>
+                <option value="FirstName">First Name</option>
+                <option value="LastName">Last Name</option>
+                <option value="StudentID">Student ID</option>
+                <option value="Age">Age</option>
+            </select>
+            <input type="text" placeholder="Enter search term" 
+            onChange={(e)=>handleSearch(e.target.value)}
+            className="search-input" />
+        </div>
         <table id="studentsTable">
             <thead>
                 <tr>
@@ -55,32 +89,30 @@ setGetAddForm("Edit");
                 </tr>
             </thead>
             <tbody>
-              {  
-
-        students.map((student,index)=>{
-return(
-    <tr key={student.studentID} >
-                    <td>{student.studentID}</td>
-                    <td>{student.FirstName}</td>
-                    <td>{student.LastName}</td>
-                    <td>{student.Age}</td>
-                    <td>
-                        <button className="action-btn update"
-                        onClick={()=>handleUpdate(student)}
-                        >Update</button>
-                        <button onClick={()=>DeleteStudent(student.studentID)} className="action-btn delete">Delete</button>
-                    </td>
-                </tr>
-)
- })
-    
-}
-
+                {
+                   students.map((student, index) => (
+                    
+                      <tr key={student.studentID}>
+                            <td>{student.studentID}</td>
+                            <td>{student.FirstName}</td>
+                            <td>{student.LastName}</td>
+                            <td>{student.Age}</td>
+                            <td>
+                                <button className="action-btn update"
+                                    onClick={() => handleUpdate(student)}
+                                >Update</button>
+                                <button onClick={() => DeleteStudent(student.studentID)} className="action-btn delete">Delete</button>
+                            </td>
+                        </tr>
+                    
+                    ))
+                }
             </tbody>
         </table>
-        <button  className='back' onClick={()=>navigate(-1)}>back</button>
+        <button className='back' onClick={() => navigate(-1)}>Back</button>
     </div>
-  )
-}
+);
+};
+
 
 export default GetStudents
