@@ -28,7 +28,9 @@ const studentController={
         const student={
             FirstName:req.body.FirstName,
             LastName:req.body.LastName,
-            Age:req.body.Age
+            Age:req.body.Age,
+            GradeID:req.body.GradeID,
+            Image:req.file?req.file.filename:null
         };
         Student.Add(student,(error,results)=>{
             if(error){

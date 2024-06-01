@@ -1,11 +1,14 @@
 const conn=require("../index");
 const studentModel={
 GetAll:(callback)=>{
-    const sql="select *from students";
+    const sql="select s.studentID, s.FirstName, s.LastName, s.Age, s.Image ,g.GradeName"+ 
+    " from students s JOIN grades g on s.GradeID=g.grade_id";
+            
     conn.query(sql,callback);
 },
 GetByID:(id,callback)=>{
-    const sql="select *from students where studentID = ?";
+    const sql="select s.studentID, s.FirstName, s.LastName, s.Age, s.Image ,g.GradeName"+ 
+    " from students s JOIN grades g on s.GradeID=g.grade_id where studentID = ?";
     conn.query(sql,[id],callback);
 },
 Add:(student,callback)=>{

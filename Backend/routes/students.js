@@ -1,9 +1,26 @@
-const express=require("express");
+const express = require('express');
+const multer = require('multer');
+const path = require('path');
 const router=express.Router();
+
 const studentController=require("../Controllers/students");
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/'); // Directory to save uploaded files
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to file name
+    }
+  });
+
+
+  const upload = multer({ storage: storage });
+
 router.get("/students",studentController.GetAllStudents);
 router.get("/student/:id",studentController.GetStudentByID)
-router.post("/student",studentController.AddStudent);
+router.post("/student", upload.single('image'),studentController.AddStudent);
 router.put("/student/:id",studentController.updateStudent);
 router.delete("/student/:id",studentController.deleteStudent);
 
