@@ -17,11 +17,11 @@ const storage = multer.diskStorage({
 
 
   const upload = multer({ storage: storage });
-
+  
 router.get("/students",studentController.GetAllStudents);
 router.get("/student/:id",studentController.GetStudentByID)
-router.post("/student", upload.single('image'),studentController.AddStudent);
-router.put("/student/:id",studentController.updateStudent);
+router.post("/student",upload.single("image"),studentController.AddStudent);
+router.put("/student/:id",upload.single("image"),studentController.updateStudent);
 router.delete("/student/:id",studentController.deleteStudent);
 
 

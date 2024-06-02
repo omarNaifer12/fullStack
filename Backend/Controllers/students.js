@@ -1,4 +1,7 @@
 const Student=require("../Database/models/students");
+const pathImages="C:/Users/naifer/Desktop/fullStack/Backend/uploads"
+const fs = require('fs');
+const path=require('path');
 const studentController={
     GetAllStudents:(req,res)=>{
         Student.GetAll((error,results)=>{
@@ -53,10 +56,20 @@ const studentController={
             }
 
             const existingStudent = results[0];
+        let img=null;
+            if(req.file){
+                const oldFilePath=path.join(pathImages,existingStudent.Image);
+                if(fs.existsSync(oldFilePath)){
+                    fs.unlinkSync(oldFilePath);
+                }
+                img=req.file.filename;
+            }
         const student = {
             FirstName: req.body.FirstName||existingStudent.FirstName,
             LastName: req.body.LastName||existingStudent.LastName,
-            Age:req.body.Age||existingStudent.Age
+            Age:req.body.Age||existingStudent.Age,
+            GradeID:req.body.GradeID||existingStudent.GradeID,
+            Image:img||existingStudent.Image
         }
       
         Student.update(id, student, (err, result) => {
@@ -68,12 +81,28 @@ const studentController={
         })
     },
     deleteStudent:(req,res) => {
-        Student.delete(req.params.id, (err, result) => {
+        const id = req.params.id;
+        Student.GetByID(id, (err, results) => {
             if (err) {
                 return res.status(500).send(err);
             }
-            res.send(`Student deleted with ID: ${req.params.id}`);
-        });
+            if (results.length === 0) {
+                return res.status(404).send({ error: 'student not found' });
+            }
+            Student.delete(id, (err, result) => {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+                const existingStudent = results[0];
+                const filePath=path.join(pathImages,existingStudent.Image);
+                if(fs.existsSync(filePath)){
+                    fs.unlinkSync(filePath);
+                }
+                res.send(`Student deleted with ID: ${req.params.id}`);
+            });
+           
+        })
+        
     }
 }
 module.exports=studentController;
