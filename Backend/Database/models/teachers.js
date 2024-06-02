@@ -10,6 +10,10 @@ GetByID:(id,callback)=>{
     " from teachers s JOIN Subjects g on s.SubjectID=g.subject_id where teacherID = ?";
     conn.query(sql,[id],callback);
 },
+GetAllSubjects:(callback)=>{
+    const sql="select * from Subjects";
+    conn.query(sql,callback);
+},
 Add:(teacher,callback)=>{
     const sql = 'INSERT INTO teachers SET ?';
     conn.query(sql, teacher, callback);

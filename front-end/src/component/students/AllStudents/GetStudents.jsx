@@ -159,7 +159,7 @@ return (
                             <td>{student.Age}</td>
                             <td>{student.GradeName} {console.log(student.Image)}</td>
                            
-                            <td><img src={`http://localhost:3000/api${student.Image}`} alt="Student" className="student-img" /></td>
+                            <td><img src={`http://localhost:3000/api${student.Image}`}  className="student-img" /></td>
                             <td>
                                 <button className="action-btn update"
                                     onClick={() => handleUpdate(student)}

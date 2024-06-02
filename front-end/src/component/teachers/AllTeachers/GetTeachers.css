@@ -1,105 +1,109 @@
-/* Container styling */
+/* Container Styling */
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
     background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Header styling */
+  /* Header Styling */
   h1 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
   }
   
-  /* Button styling */
+  /* Add Button Styling */
   .add-btn {
     display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: #4CAF50;
-    color: white;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
     cursor: pointer;
   }
   
   .add-btn:hover {
-    background-color: #45a049;
+    background-color: #218838;
   }
   
-  /* Table styling */
-  #studentsTable {
+  /* Table Styling */
+  #teachersTable {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
   }
   
-  #studentsTable thead {
+  #teachersTable th, #teachersTable td {
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  #teachersTable th {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  #teachersTable tr:nth-child(even) {
     background-color: #f2f2f2;
   }
   
-  #studentsTable th,
-  #studentsTable td {
-    text-align: left;
-    padding: 12px;
-    border: 1px solid #ddd;
+  #teachersTable tr:hover {
+    background-color: #ddd;
   }
   
-  #studentsTable th {
-    background-color: #f2f2f2;
-    color: #333;
+  /* Teacher Image Styling */
+  .teacher-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
   }
   
-  #studentsTable tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  #studentsTable tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  /* Action buttons styling */
+  /* Action Button Styling */
   .action-btn {
     padding: 5px 10px;
+    margin: 0 5px;
+    font-size: 14px;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
-    margin-right: 5px;
   }
   
-  .update {
-    background-color: #4CAF50;
-    color: white;
+  .action-btn.update {
+    background-color: #ffc107;
   }
   
-  .update:hover {
-    background-color: #45a049;
+  .action-btn.update:hover {
+    background-color: #e0a800;
   }
   
-  .delete {
-    background-color: #f44336;
-    color: white;
+  .action-btn.delete {
+    background-color: #dc3545;
   }
   
-  .delete:hover {
-    background-color: #e53935;
+  .action-btn.delete:hover {
+    background-color: #c82333;
   }
-  .back{
+  
+  /* Back Button Styling */
+  .back {
     display: block;
-    width: 10%;
-    padding: 10px;
-   background-color: #333;
-    color: white;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #6c757d;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
     cursor: pointer;
-  float: right;
   }
+  
+  .back:hover {
+    background-color: #5a6268;
+  }
+  

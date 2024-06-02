@@ -58,9 +58,12 @@ const studentController={
             const existingStudent = results[0];
         let img=null;
             if(req.file){
-                const oldFilePath=path.join(pathImages,existingStudent.Image);
-                if(fs.existsSync(oldFilePath)){
-                    fs.unlinkSync(oldFilePath);
+
+                if (existingStudent.Image) {
+                    const oldFilePath = path.join(pathImages, existingStudent.Image);
+                    if (fs.existsSync(oldFilePath)) {
+                        fs.unlinkSync(oldFilePath);
+                    }
                 }
                 img=`/uploads/${req.file.filename}`;
             }

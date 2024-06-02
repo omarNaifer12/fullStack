@@ -13,6 +13,16 @@ const teacherController={
            return  res.json(results);
         })
     },
+    GetAllSubjectsList:(req,res)=>{
+        Teacher.GetAllSubjects((error,results)=>{
+            if(error){
+                console.log("error",error);
+               return res.status(500).send(error);
+            }
+            console.log('the result is ',results);
+           return  res.json(results);
+        })
+    },
     GetTeacherByID:(req,res)=>{
         const id=req.params.id;
         Teacher.GetByID(id,(error,results)=>{
@@ -59,10 +69,12 @@ const teacherController={
             const existingTeacher = results[0];
         let img=null;
             if(req.file){
+                if(existingTeacher.Image){
                 const oldFilePath=path.join(pathImages,existingTeacher.Image);
                 if(fs.existsSync(oldFilePath)){
                     fs.unlinkSync(oldFilePath);
                 }
+            }
                 img=req.file.filename;
             }
         const teacher = {

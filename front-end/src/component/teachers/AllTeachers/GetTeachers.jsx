@@ -51,6 +51,8 @@ const navigate=useNavigate();
             <th>First Name</th>
             <th>Last Name</th>
             <th>Age</th>
+            <th>Subject</th>
+            <th>Image</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -61,6 +63,10 @@ const navigate=useNavigate();
               <td>{teacher.FirstName}</td>
               <td>{teacher.LastName}</td>
               <td>{teacher.Age}</td>
+              <td>{teacher.SubjectName}</td>
+              <td>
+                <img src={`http://localhost:3000/api/uploads/${teacher.Image}`} alt={`${teacher.FirstName} ${teacher.LastName}`} className="teacher-image" />
+              </td>
               <td>
                 <button className="action-btn update" onClick={() => handleUpdate(teacher)}>Update</button>
                 <button onClick={() => deleteTeacher(teacher.teacherID)} className="action-btn delete">Delete</button>
@@ -69,10 +75,8 @@ const navigate=useNavigate();
           ))}
         </tbody>
       </table>
-      <button  className='back' onClick={()=>navigate(-1)}>back</button>
-
+      <button className="back" onClick={() => navigate(-1)}>Back</button>
     </div>
-  )
-}
-
+  );
+}  
 export default GetTeachers;
