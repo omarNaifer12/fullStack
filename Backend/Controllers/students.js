@@ -1,5 +1,5 @@
 const Student=require("../Database/models/students");
-const pathImages="C:/Users/naifer/Desktop/fullStack/Backend/uploads"
+const pathImages="C:/Users/naifer/Desktop/fullStack/Backend"
 const fs = require('fs');
 const path=require('path');
 const studentController={
@@ -33,7 +33,7 @@ const studentController={
             LastName:req.body.LastName,
             Age:req.body.Age,
             GradeID:req.body.GradeID,
-            Image:req.file?req.file.filename:null
+            Image:req.file?`/uploads/${req.file.filename}`:null
         };
         Student.Add(student,(error,results)=>{
             if(error){
@@ -62,7 +62,7 @@ const studentController={
                 if(fs.existsSync(oldFilePath)){
                     fs.unlinkSync(oldFilePath);
                 }
-                img=req.file.filename;
+                img=`/uploads/${req.file.filename}`;
             }
         const student = {
             FirstName: req.body.FirstName||existingStudent.FirstName,
@@ -94,10 +94,12 @@ const studentController={
                     return res.status(500).send(err);
                 }
                 const existingStudent = results[0];
+                if(existingStudent.Image!==null){
                 const filePath=path.join(pathImages,existingStudent.Image);
                 if(fs.existsSync(filePath)){
                     fs.unlinkSync(filePath);
                 }
+            }
                 res.send(`Student deleted with ID: ${req.params.id}`);
             });
            

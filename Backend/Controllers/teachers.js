@@ -99,7 +99,7 @@ const teacherController={
                 if(fs.existsSync(filePath)){
                     fs.unlinkSync(filePath);
                 }
-                res.send(`teacher deleted with ID: ${req.params.id}`);
+                res.send(`Student deleted with ID: ${req.params.id}`);
             });
            
         })

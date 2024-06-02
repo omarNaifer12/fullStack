@@ -144,18 +144,22 @@ return (
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Age</th>
+                    <th>Grade</th>
+                    <th>Image</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {
                    students.map((student, index) => (
-                    
                       <tr key={student.studentID}>
                             <td>{student.studentID}</td>
                             <td>{student.FirstName}</td>
                             <td>{student.LastName}</td>
                             <td>{student.Age}</td>
+                            <td>{student.GradeName} {console.log(student.Image)}</td>
+                           
+                            <td><img src={`http://localhost:3000/api${student.Image}`} alt="Student" className="student-img" /></td>
                             <td>
                                 <button className="action-btn update"
                                     onClick={() => handleUpdate(student)}
@@ -163,7 +167,6 @@ return (
                                 <button onClick={() => DeleteStudent(student.studentID)} className="action-btn delete">Delete</button>
                             </td>
                         </tr>
-                    
                     ))
                 }
             </tbody>
@@ -171,7 +174,6 @@ return (
         <button className='back' onClick={() => navigate(-1)}>Back</button>
     </div>
 );
+
 };
-
-
 export default GetStudents

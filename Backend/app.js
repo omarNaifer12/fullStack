@@ -7,6 +7,14 @@ const teacherRoutes=require("./routes/teachers");
 const classRoutes=require("./routes/classes");
 
 
+
+
+
+
+
+
+
+
 const cors=require("cors");
 app.use(cors());
 app.use(express.json());
