@@ -4,9 +4,9 @@ const classController={
         Class.GetAll((error,results)=>{
             if(error){
                 console.log("error",error);
-               return res.status(500).send(error);
+           return res.status(500).send(error);
             }
-            console.log('the result is ',results);
+                console.log('the result is ',results);
            return  res.json(results);
         })
     },

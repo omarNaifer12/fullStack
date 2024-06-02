@@ -67,7 +67,7 @@ const studentController={
         const student = {
             FirstName: req.body.FirstName||existingStudent.FirstName,
             LastName: req.body.LastName||existingStudent.LastName,
-            Age:req.body.Age||existingStudent.Age,
+             Age:req.body.Age||existingStudent.Age,
             GradeID:req.body.GradeID||existingStudent.GradeID,
             Image:img||existingStudent.Image
         }
@@ -102,7 +102,6 @@ const studentController={
             });
            
         })
-        
     }
 }
 module.exports=studentController;

@@ -1,11 +1,13 @@
 const conn=require("../index");
 const teacherModel={
 GetAll:(callback)=>{
-    const sql="select *from teachers";
+    const sql="select s.teacherID, s.FirstName, s.LastName, s.Age, s.Image ,g.SubjectName"+ 
+    " from teachers s JOIN Subjects g on s.SubjectID=g.subject_id";
     conn.query(sql,callback);
 },
 GetByID:(id,callback)=>{
-    const sql="select *from teachers where teacherID = ?";
+    const sql="select s.teacherID, s.FirstName, s.LastName, s.Age, s.Image ,g.SubjectName"+ 
+    " from teachers s JOIN Subjects g on s.SubjectID=g.subject_id where teacherID = ?";
     conn.query(sql,[id],callback);
 },
 Add:(teacher,callback)=>{
