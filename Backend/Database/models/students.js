@@ -11,6 +11,7 @@ GetByID:(id,callback)=>{
     " from students s JOIN grades g on s.GradeID=g.grade_id where studentID = ?";
     conn.query(sql,[id],callback);
 },
+
 Add:(student,callback)=>{
     const sql = 'INSERT INTO students SET ?';
     conn.query(sql, student, callback);
